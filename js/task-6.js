@@ -29,8 +29,6 @@
 * Для очищення колекції після натискання на кнопку Destroy 
 * створи функцію destroyBoxes(), яка очищає вміст div#boxes, 
 * у такий спосіб видаляючи всі створені елементи.
-*/
-
 
 
 function getRandomHexColor() {
@@ -38,3 +36,48 @@ function getRandomHexColor() {
     .toString(16)
     .padStart(6, 0)}`;
 }
+*/
+
+
+function getRandomHexColor() {
+      return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
+    }
+
+    const controlsDiv = document.getElementById('controls');
+    const input = controlsDiv.querySelector('input');
+    const createButton = controlsDiv.querySelector('[data-create]');
+    const destroyButton = controlsDiv.querySelector('[data-destroy]');
+    const boxesDiv = document.getElementById('boxes');
+
+    createButton.addEventListener('click', () => {
+      const amount = Number(input.value);
+
+      if (amount >= 1 && amount <= 100) {
+        createBoxes(amount);
+        input.value = '';
+      } else {
+        alert('Please enter a number between 1 and 100.');
+      }
+    });
+
+    destroyButton.addEventListener('click', destroyBoxes);
+
+    function createBoxes(amount) {
+      let size = 30;
+      const fragment = document.createDocumentFragment();
+
+      for (let i = 0; i < amount; i++) {
+        const div = document.createElement('div');
+        div.style.width = `${size}px`;
+        div.style.height = `${size}px`;
+        div.style.backgroundColor = getRandomHexColor();
+        fragment.appendChild(div);
+        size += 10;
+      }
+
+      boxesDiv.appendChild(fragment);
+    }
+
+    function destroyBoxes() {
+      boxesDiv.innerHTML = '';
+    }
