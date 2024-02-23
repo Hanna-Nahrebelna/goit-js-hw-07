@@ -38,12 +38,12 @@ const loginForm = document.querySelector('.login-form');
       for (let i = 0; i < formElements.length; i++) {
         const element = formElements[i];
 
-        if (element.nodeName === 'INPUT' && element.value.trim() === '') {
+        if (element.nodeName === 'INPUT' && element.value.trim()) {
           alert('All form fields must be filled in');
           return;
         }
 
-          formData[element.name] = element.value.trim();
+          formData[element.name] = element.value;
       }
 
       console.log(formData);
