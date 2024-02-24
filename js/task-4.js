@@ -26,6 +26,7 @@
 * і очисти значення полів форми методом reset.
 */
 
+
 const loginForm = document.querySelector('.login-form');
 
     loginForm.addEventListener('submit', (event) => {
@@ -43,10 +44,13 @@ const loginForm = document.querySelector('.login-form');
           return;
         }
 
+        if (element.type === 'input') {
           formData[element.name] = element.value;
+        }
       }
 
       console.log(formData);
 
       loginForm.reset();
     });
+  
