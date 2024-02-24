@@ -29,28 +29,46 @@
 
 const loginForm = document.querySelector('.login-form');
 
-    loginForm.addEventListener('submit', (event) => {
-      event.preventDefault();
+loginForm.addEventListener('submit', (event) => {
+  event.preventDefault();
 
-      const formData = {};
+  const formData = {};
+  const form = event.target;
+  const formElements = event.target.elements;
 
-      const formElements = event.target.elements;
+  let allFieldsEmpty = true;
+  let emailFilled = false;
+  let passwordFilled = false;
 
-      for (let i = 0; i < formElements.length; i++) {
-        const element = formElements[i];
-
-        if (element.nodeName === 'INPUT' && element.value.trim() === '') {
-          alert('All form fields must be filled in');
-          return;
-        }
-
-        if (element.type === 'input') {
-          formData[element.name] = element.value;
-        }
+  for (let i = 0; i < formElements.length; i++) {
+    const element = formElements[i];
+    if (element.nodeName === 'INPUT' && element.value.trim() !== '') {
+      allFieldsEmpty = false;
+      if (element.name === 'email') {
+        emailFilled = true;
       }
+      if (element.name === 'password') {
+        passwordFilled = true;
+      }
+    }
+  }
 
-      console.log(formData);
+  if (allFieldsEmpty || !emailFilled || !passwordFilled) {
+    alert('All form fields must be filled in');
+    return;
+  }
+  
+   for (let i = 0; i < formElements.length; i++) {
+    const element = formElements[i];
 
-      loginForm.reset();
-    });
+    if (element.nodeName === 'INPUT' && element.name) {
+      formData[element.name] = element.value.trim();
+    }
+  }
+
+  console.log(formData);
+
+  loginForm.reset();  
+  
+});
   
